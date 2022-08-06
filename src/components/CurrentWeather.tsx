@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { IData } from '../types/types';
 import { motion } from 'framer-motion';
+import WindSvg from '../ui/WindSvg';
+import WaterDropSvg from '../ui/WaterDropSvg';
 
-const CurrentWeather = ({ data, isNight }: { data: IData; isNight: boolean }) => {
-  let conditionText = data.current.condition.text;
-  let date = new Date();
+interface Props {
+  data: IData;
+  isNight: boolean;
+}
+
+const CurrentWeather: React.FC<Props> = ({ data, isNight }) => {
+  const conditionText = data.current.condition.text;
+  const imageName = conditionText.toLowerCase().replace(/\s+/g, '-');
 
   return (
     <motion.div
@@ -16,12 +23,8 @@ const CurrentWeather = ({ data, isNight }: { data: IData; isNight: boolean }) =>
       <motion.img
         animate={{ scale: [1, 1.05, 1] }}
         transition={{ repeat: Infinity, duration: 2 }}
-        src={`images/3d-icons/${
-          isNight
-            ? conditionText.toLowerCase().replace(/\s+/g, '-') + '-night'
-            : conditionText.toLowerCase().replace(/\s+/g, '-')
-        }.png`}
-        alt=""
+        src={`images/3d-icons/${isNight ? imageName + '-night' : imageName}.png`}
+        alt="weather-img"
       />
       <p className="current-desc">{conditionText}</p>
       <h3 className="current-temp" title="28">
@@ -29,11 +32,11 @@ const CurrentWeather = ({ data, isNight }: { data: IData; isNight: boolean }) =>
       </h3>
       <div className="current__block">
         <div className="current__block-item">
-          <img src="images/wind.svg" alt="" />
+          <WindSvg isNight={isNight} />
           <p>{data.current.wind_kph} km/h</p>
         </div>
         <div className="current__block-item">
-          <img src="images/water-drop.svg" alt="" />
+          <WaterDropSvg isNight={isNight} />
           <p>{data.current.precip_in} %</p>
         </div>
       </div>

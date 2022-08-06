@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
-import CurrentWeather from './components/CurrentWeather';
-import FutureWeather from './components/FutureWeather';
-import Search from './components/Search';
 import axios from 'axios';
+import { Search, CurrentWeather, FutureWeather, Error } from './components/index';
 import { IData } from './types/types';
 import { useDebounce } from './hooks/debounce';
-import { motion } from 'framer-motion';
 
 function App() {
   const [data, setData] = useState<IData>();
@@ -33,14 +30,14 @@ function App() {
 
     await axios
       .request(options)
-      .then(function (response) {
-        setData(response.data);
+      .then((res) => {
+        setData(res.data);
         setIsLoading(false);
         setIsError(false);
       })
-      .catch(() => {
+      .catch((err) => {
         setIsError(true);
-        console.log('Ничего не найдено');
+        console.log(err);
       });
   };
 
@@ -50,7 +47,6 @@ function App() {
 
   useEffect(() => {
     const root = document.documentElement;
-
     root?.style.setProperty('--bg', isNight ? '#1e2935' : '#4be2e3');
     root?.style.setProperty('--text-color', isNight ? '#ffdb64' : '#203752');
     root?.style.setProperty('--light-bg', isNight ? '#26384b' : '#75f7f7');
@@ -65,19 +61,7 @@ function App() {
           <FutureWeather data={data} />
         </>
       )}
-      {isError && (
-        <div className="error">
-          <div className="error__inner">
-            <motion.span
-              animate={{ scale: [1, 1.05, 1], rotate: [-30, 0, 30, 0, -30, -30, 0, 30, 0, -30] }}
-              transition={{ repeat: Infinity, duration: 2 }}>
-              😣
-            </motion.span>
-            <h1>oops...</h1>
-            <p>nothing find</p>
-          </div>
-        </div>
-      )}
+      {isError && <Error />}
     </div>
   );
 }
