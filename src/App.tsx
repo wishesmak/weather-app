@@ -5,11 +5,16 @@ import Search from './components/Search';
 import axios from 'axios';
 import { IData } from './types/types';
 import { useDebounce } from './hooks/debounce';
+import { motion } from 'framer-motion';
 
 function App() {
   const [data, setData] = useState<IData>();
   const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [searchValue, setSearchValue] = useState('London');
+
+  const date = new Date();
+  const [isNight, setIsNight] = useState<boolean>(date.getHours() >= 21 || date.getHours() <= 3);
 
   const debounce = useDebounce(searchValue, 1000);
 
@@ -31,8 +36,10 @@ function App() {
       .then(function (response) {
         setData(response.data);
         setIsLoading(false);
+        setIsError(false);
       })
-      .catch(function (error) {
+      .catch(() => {
+        setIsError(true);
         console.log('Ничего не найдено');
       });
   };
@@ -41,11 +48,36 @@ function App() {
     fetchWeather(debounce);
   }, [debounce]);
 
+  useEffect(() => {
+    const root = document.documentElement;
+
+    root?.style.setProperty('--bg', isNight ? '#1e2935' : '#4be2e3');
+    root?.style.setProperty('--text-color', isNight ? '#ffdb64' : '#203752');
+    root?.style.setProperty('--light-bg', isNight ? '#26384b' : '#75f7f7');
+  }, [isNight]);
+
   return (
     <div className="app">
-      <Search setSearchValue={setSearchValue} />
-      {isLoading ? 'Loading' : data && <CurrentWeather data={data} />}
-      {/* <FutureWeather /> */}
+      <Search setIsNight={setIsNight} isNight={isNight} setSearchValue={setSearchValue} />
+      {!isLoading && data && (
+        <>
+          <CurrentWeather data={data} isNight={isNight} />
+          <FutureWeather data={data} />
+        </>
+      )}
+      {isError && (
+        <div className="error">
+          <div className="error__inner">
+            <motion.span
+              animate={{ scale: [1, 1.05, 1], rotate: [-30, 0, 30, 0, -30, -30, 0, 30, 0, -30] }}
+              transition={{ repeat: Infinity, duration: 2 }}>
+              😣
+            </motion.span>
+            <h1>oops...</h1>
+            <p>nothing find</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

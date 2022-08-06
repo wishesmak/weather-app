@@ -2,17 +2,24 @@ import React from 'react';
 
 interface Props {
   setSearchValue: (i: string) => void;
+  setIsNight: (i: boolean) => void;
+  isNight: boolean;
 }
 
-const Search: React.FC<Props> = ({ setSearchValue }) => {
+const Search: React.FC<Props> = ({ setSearchValue, setIsNight, isNight }) => {
   return (
     <div className="search">
-      <img src="images/geo-icon.svg" alt="" />
-      <input
-        onChange={(e) => setSearchValue(e.target.value)}
-        type="text"
-        placeholder="find city.."
-      />
+      <div className="search__inner">
+        <img src="images/geo-icon.svg" alt="" />
+        <input
+          onChange={(e) => setSearchValue(e.target.value)}
+          type="text"
+          placeholder="find city.."
+        />
+      </div>
+      <button className="change-theme" onClick={() => setIsNight(!isNight)}>
+        flip theme
+      </button>
     </div>
   );
 };

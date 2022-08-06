@@ -6,12 +6,14 @@
 }
 
 :root {
-  --light-blue: #4be2e3;
+  --bg: #4be2e3;
   --text-color: #203752;
+  --light-bg: #75f7f7;
+  --test: #ffdb64;
 }
 
 body {
-  background-color: var(--light-blue);
+  background-color: var(--bg);
   color: var(--text-color);
   font-family: 'Kanit', serif;
   font-size: 20px;
@@ -25,10 +27,11 @@ body {
 .search {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 0;
 
   svg {
-    margin-right: 15px;
+    margin-right: 20px;
   }
 
   input {
@@ -38,6 +41,8 @@ body {
     border: none;
     background-color: transparent;
     color: var(--text-color);
+    text-transform: capitalize;
+    width: 200px;
     &:focus {
       outline: none;
     }
@@ -45,6 +50,21 @@ body {
       color: var(--text-color);
       opacity: 0.5;
     }
+  }
+  &__inner {
+    display: flex;
+    align-items: center;
+  }
+
+  .change-theme {
+    width: 100px;
+    padding: 7px;
+    background-color: var(--text-color);
+    border: none;
+    border-radius: 5px;
+    color: var(--light-bg);
+    font-size: 18px;
+    font-weight: 600;
   }
 }
 
@@ -57,12 +77,12 @@ body {
   height: 390px;
 
   h1 {
-    font-size: 20px;
+    font-size: 18px;
     margin-bottom: 10px;
   }
 
   img {
-    width: 200px;
+    width: 170px;
   }
 
   &-desc {
@@ -73,7 +93,7 @@ body {
   }
 
   &-temp {
-    margin-left: 18px;
+    margin: -20px 0 -15px 18px;
     font-size: 80px;
     font-weight: 500;
   }
@@ -94,6 +114,54 @@ body {
       img {
         margin-right: 5px;
       }
+    }
+  }
+}
+
+.future {
+  margin: 10px auto;
+  display: flex;
+  justify-content: space-between;
+  font-size: 15px;
+  width: 330px;
+
+  &-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: var(--light-bg);
+    padding: 20px 15px;
+    border-radius: 10px;
+
+    img {
+      width: 50px;
+    }
+
+    h5 {
+      opacity: 0.6;
+    }
+
+    span {
+      font-size: 18px;
+      font-weight: 500;
+    }
+  }
+}
+
+.error {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span {
+      font-size: 50px;
     }
   }
 }
