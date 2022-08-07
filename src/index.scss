@@ -18,10 +18,16 @@ body {
   font-family: 'Kanit', serif;
   font-size: 20px;
   font-weight: 400;
+  overflow: hidden;
 }
 
 .app {
-  padding: 20px 20px;
+  padding: 40px 20px;
+
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .search {
@@ -29,6 +35,11 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 10px 0;
+  margin: 0 auto;
+  width: 600px;
+  @media (max-width: 640px) {
+    width: 330px;
+  }
 
   svg {
     margin-right: 20px;
@@ -63,7 +74,7 @@ body {
     border: none;
     border-radius: 5px;
     color: var(--light-bg);
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
   }
 }
@@ -123,7 +134,10 @@ body {
   display: flex;
   justify-content: space-between;
   font-size: 15px;
-  width: 330px;
+  width: 600px;
+  @media (max-width: 640px) {
+    width: 330px;
+  }
 
   &-item {
     display: flex;
@@ -133,6 +147,23 @@ body {
     background-color: var(--light-bg);
     padding: 20px 15px;
     border-radius: 10px;
+    width: 160px;
+
+    @media (max-width: 640px) {
+      width: 100px;
+      img {
+        width: 50px;
+      }
+
+      h5 {
+        opacity: 0.6;
+      }
+
+      span {
+        font-size: 18px;
+        font-weight: 500;
+      }
+    }
 
     img {
       width: 50px;
@@ -140,6 +171,8 @@ body {
 
     h5 {
       opacity: 0.6;
+      font-size: 16px;
+      margin-bottom: 5px;
     }
 
     span {

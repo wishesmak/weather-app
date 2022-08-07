@@ -37,7 +37,7 @@ const CurrentWeather: React.FC<Props> = ({ data, isNight }) => {
         </div>
         <div className="current__block-item">
           <WaterDropSvg isNight={isNight} />
-          <p>{data.current.precip_in} %</p>
+          <p>{data.current.humidity} %</p>
         </div>
       </div>
     </motion.div>

@@ -21,7 +21,7 @@ const FutureWeather: React.FC<Props> = ({ data }) => {
             src={`images/2d-icons/wi-day-${day.day.condition.text
               .toLowerCase()
               .replace(/\s+/g, '-')}.svg`}
-            alt="weather-img"
+            alt={day.day.condition.text.toLowerCase().replace(/\s+/g, '-')}
           />
           <span>{Math.round((day.day.maxtemp_c + day.day.mintemp_c) / 2)}</span>
         </motion.div>
