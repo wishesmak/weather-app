@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Search, CurrentWeather, FutureWeather, Error } from './components/index';
+import { Search, CurrentWeather, FutureWeather, Error } from './components';
 import { IData } from './types/types';
-import { useDebounce } from './hooks/debounce';
+import { useDebounce } from './hooks/useDebounce';
 
 function App() {
   const [data, setData] = useState<IData>();

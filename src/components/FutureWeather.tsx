@@ -23,7 +23,7 @@ const FutureWeather: React.FC<Props> = ({ data }) => {
               .replace(/\s+/g, '-')}.svg`}
             alt={day.day.condition.text.toLowerCase().replace(/\s+/g, '-')}
           />
-          <span>{Math.round((day.day.maxtemp_c + day.day.mintemp_c) / 2)}</span>
+          <span>{Math.round((day.day.maxtemp_c + day.day.mintemp_c) / 2)}&deg;</span>
         </motion.div>
       ))}
     </div>
